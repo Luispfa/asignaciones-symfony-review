@@ -15,13 +15,14 @@ class UserController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
-        $res = 'Lista de usuarios: <br/>';
+        /* $res = 'Lista de usuarios: <br/>';
 
-        foreach ($users as $user) {
-            $res .= 'Usuario: ' . $user->getUsername() . ' Email: ' . $user->getEmail() . '<br/>';
-        }
+          foreach ($users as $user) {
+          $res .= 'Usuario: ' . $user->getUsername() . ' Email: ' . $user->getEmail() . '<br/>';
+          }
 
-        return new Response($res);
+          return new Response($res); */
+        return $this->render('user/index.html.twig', array('users' => $users));
     }
 
     /**
