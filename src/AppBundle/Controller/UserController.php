@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller {
 
     /**
-     * @Route("/user/index", name="index")
+     * @Route("/user/index", name="user_index")
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();

@@ -73,9 +73,9 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="create_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -264,27 +264,27 @@ class User
     }
 
     /**
-     * Set createAt
+     * Set createdAt
      *
-     * @param \DateTime $createAt
+     * @param \DateTime $createdAt
      *
      * @return User
      */
-    public function setCreateAt($createAt)
+    public function setCreatedAt($createdAt)
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get createAt
+     * Get createdAt
      *
      * @return \DateTime
      */
-    public function getCreateAt()
+    public function getCreatedAt()
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
     /**
