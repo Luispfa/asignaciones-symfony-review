@@ -6,6 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 
 class UserController extends Controller {
 
@@ -26,13 +29,47 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/user/add", name="add")
+     * @Route("/user/add", name="user_add")
      */
-    public function addAction(Request $request) {
+    public function addAction() {
+
+        $user = new User();
+        $form = $this->createCreateForm($user);
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+        return $this->render('user/add.html.twig', array('form' => $form->createView()));
+    }
+
+    private function createCreateForm(User $entity) {
+        $form = $this->createForm(new UserType(), $entity, array('action' => $this->generateUrl('user_create'),
+            'method' => 'POST'
         ));
+        return $form;
+    }
+
+    /**
+     * @Route("/user/create", name="user_create")
+     * @Method("POST")
+     */
+    public function createAction(Request $request) {
+        $user = new User();
+        $form = $this->createCreateForm($user);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $password = $form->get('password')->getData();
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user,$password);
+            $user->setPassword($encoded);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        // replace this example code with whatever you need
+        return $this->render('user/add.html.twig', array('form' => $form->createView()));
     }
 
     /**
