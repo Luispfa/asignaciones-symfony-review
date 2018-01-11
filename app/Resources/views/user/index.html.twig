@@ -2,13 +2,7 @@
 
 {% block body %}
     {{ parent() }}
-    {% for flash_message in app.session.flashBag.get('mensaje') %}
-        <div class="alert alert-success" role="alert">
-            <div class="container">
-                {{ flash_message }}
-            </div>
-        </div>
-    {% endfor %}
+    {{ include('messages/success.html.twig') }}
     <div class="container">
         <div class="col-md-12">
             <div class="page-header margin-none">
