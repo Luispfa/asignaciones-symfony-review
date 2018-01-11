@@ -15,9 +15,9 @@ class UserController extends Controller {
     /**
      * @Route("/user/index", name="user_index")
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        //$users = $em->getRepository('AppBundle:User')->findAll();
         /* $res = 'Lista de usuarios: <br/>';
 
           foreach ($users as $user) {
@@ -25,7 +25,14 @@ class UserController extends Controller {
           }
 
           return new Response($res); */
-        return $this->render('user/index.html.twig', array('users' => $users));
+
+        $dql = "SELECT u FROM AppBundle:User u";
+        $users = $em->createQuery($dql);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 3);
+        
+        return $this->render('user/index.html.twig', array('pagination' => $pagination));
     }
 
     /**
@@ -58,18 +65,17 @@ class UserController extends Controller {
         if ($form->isValid()) {
             $password = $form->get('password')->getData();
             $encoder = $this->container->get('security.password_encoder');
-            $encoded = $encoder->encodePassword($user,$password);
+            $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            
+
             $successMsg = $this->get('translator')->trans('The user has been created.');
             $this->addFlash(
-            'mensaje',
-            $successMsg
-        );
+                    'mensaje', $successMsg
+            );
 
             return $this->redirectToRoute('user_index');
         }
