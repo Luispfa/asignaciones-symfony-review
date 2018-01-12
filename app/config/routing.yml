@@ -8,3 +8,10 @@ redirect-add:
         _controller: AppBundle:User:add
         path: /user/add
         permanent: true
+        
+redirect-edit:
+    path: /user/update/{id}
+    defaults:
+        _controller: AppBundle:User:edit
+        path: /user/edit/{id}
+        permanent: true
