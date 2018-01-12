@@ -79,9 +79,7 @@ class UserController extends Controller {
                 $em->flush();
 
                 $successMsg = $this->get('translator')->trans('The user has been created.');
-                $this->addFlash(
-                        'mensaje', $successMsg
-                );
+                $this->addFlash('mensaje', $successMsg);
 
                 return $this->redirectToRoute('user_index');
             } else {
@@ -171,12 +169,55 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/user/view/{id}", name="view")
+     * @Route("/user/view/{id}", name="user_view")
      */
     public function viewAction($id) {
         $repository = $this->getDoctrine()->getRepository('AppBundle:User');
         $user = $repository->find($id);
-        return new Response('Usuario: ' . $user->getUsername() . ' Email: ' . $user->getEmail());
+
+        if (!$user) {
+            $message = $this->get('translator')->trans('User not found.');
+            throw $this->createNotFoundException($message);
+        }
+
+        $delete_form = $this->createDeleteForm($user);
+
+        return $this->render('user/view.html.twig', array('user' => $user, 'delete_form' => $delete_form->createView()));
+    }
+
+    private function createDeleteForm(User $entity) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('user_delete', array('id' => $entity->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm();
+    }
+
+    /**
+     * @Route("/user/delete/{id}", name="user_delete")
+     * @Method({"POST", "DELETE"})
+     */
+    public function deleteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$user) {
+            $message = $this->get('translator')->trans('User not found.');
+            throw $this->createNotFoundException($message);
+        }
+
+        $form = $this->createDeleteForm($user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->remove($user);
+            $em->flush();
+
+            $successMsg = $this->get('translator')->trans('The user has been deleted.');
+            $this->addFlash('mensaje', $successMsg);
+
+            return $this->redirectToRoute('user_index');
+        }
+
     }
 
 }
