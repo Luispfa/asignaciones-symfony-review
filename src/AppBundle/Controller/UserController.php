@@ -34,7 +34,9 @@ class UserController extends Controller {
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 3);
 
-        return $this->render('user/index.html.twig', array('pagination' => $pagination));
+        $delete_form_ajax = $this->createCustomForm(':USER_ID', 'DELETE', 'user_delete');
+
+        return $this->render('user/index.html.twig', array('pagination' => $pagination, 'delete_form_ajax' => $delete_form_ajax->createView()));
     }
 
     /**
@@ -180,7 +182,7 @@ class UserController extends Controller {
             throw $this->createNotFoundException($message);
         }
 
-        $delete_form = $this->createDeleteForm($user);
+        $delete_form = $this->createCustomForm($user->getId(), 'DELETE', 'user_delete');
 
         return $this->render('user/view.html.twig', array('user' => $user, 'delete_form' => $delete_form->createView()));
     }
@@ -205,19 +207,47 @@ class UserController extends Controller {
             throw $this->createNotFoundException($message);
         }
 
-        $form = $this->createDeleteForm($user);
+        $all_user = $em->getRepository('AppBundle:User')->findAll();
+        $count_user = count($all_user);
+        //$form = $this->createDeleteForm($user);
+        $form = $this->createCustomForm($user->getId(), 'DELETE', 'user_delete');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->remove($user);
-            $em->flush();
+            $res = $this->deleteUser($user->getRole(), $em, $user);
+            if ($request->isXmlHttpRequest()) {
+                return new Response(
+                        json_encode(array('removed' => $res['removed'], 'message' => $res['message'], 'countUsers' => $count_user)), 200, array('Content-Type' => 'application/json')
+                );
+            }
 
-            $successMsg = $this->get('translator')->trans('The user has been deleted.');
-            $this->addFlash('mensaje', $successMsg);
+            $this->addFlash($res['alert'], $res['message']);
 
             return $this->redirectToRoute('user_index');
         }
+    }
 
+    private function deleteUser($role, $em, $user) {
+        if ($role == 'ROLE_USER') {
+            $em->remove($user);
+            $em->flush();
+            $message = $this->get('translator')->trans('The user has been deleted.');
+            $removed = 1;
+            $alert = 'mensaje';
+        } elseif ($role == 'ROLE_ADMIN') {
+            $message = $this->get('translator')->trans('The user could not be deleted.');
+            $removed = 0;
+            $alert = 'error';
+        }
+
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
+    }
+
+    private function createCustomForm($id, $method, $route) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl($route, array('id' => $id)))
+                        ->setMethod($method)
+                        ->getForm();
     }
 
 }
