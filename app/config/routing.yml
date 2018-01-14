@@ -1,6 +1,6 @@
 app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+    resource: '@AppBundle/Controller/'
+    type: annotation
 
 redirect-add:
     path: /user/create

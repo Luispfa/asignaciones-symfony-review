@@ -5,6 +5,11 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType {
 
@@ -16,13 +21,13 @@ class UserType extends AbstractType {
                 ->add('username')
                 ->add('firstName')
                 ->add('lastName')
-                ->add('email', 'email')
-                ->add('password', 'password')
-                ->add('role', 'choice', array('choices' => array('ROLE_ADMIN' => "Administrator", 'ROLE_USER' => "User"), 'placeholder' => 'Select a Role'))
-                ->add('isActive', 'checkbox')
+                ->add('email', EmailType::class)
+                ->add('password', PasswordType::class)
+                ->add('role', ChoiceType::class, array('choices' => array('Administrator' => 'ROLE_ADMIN', 'User' => 'ROLE_USER'), 'placeholder' => 'Select a Role'))
+                ->add('isActive', CheckboxType::class)
                 //->add('createdAt')
                 //->add('updatedAt')
-                ->add('save', 'submit', array('label' => "Save user"))
+                ->add('save', SubmitType::class, array('label' => "Save user"))
         ;
     }
 
