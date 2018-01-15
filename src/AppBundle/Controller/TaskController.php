@@ -6,9 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-/* use Symfony\Component\Validator\Constraints as Assert;
-  use Symfony\Component\Form\FormError;
-  use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method; */
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 
@@ -146,39 +143,72 @@ class TaskController extends Controller {
      */
     public function deleteAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $task =$em->getRepository('AppBundle:Task')->find($id);
-        
+        $task = $em->getRepository('AppBundle:Task')->find($id);
+
         if (!$task) {
             throw $this->createNotFoundException('The task does not exist.');
         }
-        
+
         $form = $this->createCustomForm($task->getId(), 'DELETE', 'task_delete');
         $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()){
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->remove($task);
             $em->flush();
-            
+
             $this->addFlash('mensaje', 'The task has been deleted');
-            
+
             return $this->redirectToRoute('task_index');
         }
-        
     }
 
     /**
      * @Route("/task/custom", name="task_custom")
      */
     public function customAction(Request $request) {
-        
+        $id_user = $this->get('security.token_storage')->getToken()->getUser()->getId();
+        $em = $this->getDoctrine()->getManager();
+        $dql = 'SELECT t FROM AppBundle:Task t JOIN t.user u WHERE u.id= :idUser ORDER BY t.id DESC';
+        $tasks = $em->createQuery($dql)->setParameter('idUser', $id_user);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($tasks, $request->query->getInt('page', 1), 2);
+
+        $update_form = $this->createCustomForm(':TASK_ID', 'PUT', 'task_process');
+
+        return $this->render('task/custom.html.twig', array('pagination' => $pagination, 'update_form' => $update_form->createView()));
     }
 
     /**
      * @Route("/task/process/{id}", name="task_process")
      * Method({"POST", "PUT"})
      */
-    public function processAction(Request $request) {
-        
+    public function processAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository('AppBundle:Task')->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+
+        $form = $this->createCustomForm($task->getId(), 'PUT', 'task_process');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $successMessage = $this->get('translator')->trans('The task has been processed.');
+            $warningMessage = $this->get('translator')->trans('The task has already been processed.');
+            if ($task->getStatus() == 0) {
+                $task->setStatus(1);
+                $em->flush();
+                if ($request->isXmlHttpRequest()) {
+                    return new Response(json_encode(array('processed' => 1, 'success' => $successMessage)), 200, array('Content-Type' => 'aplication/json'));
+                }
+            } else {
+                if ($request->isXmlHttpRequest()) {
+                    return new Response(json_encode(array('processed' => 0, 'warning' => $warningMessage)), 200, array('Content-Type' => 'aplication/json'));
+                }
+            }
+        }
     }
 
 }

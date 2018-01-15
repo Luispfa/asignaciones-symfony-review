@@ -285,7 +285,15 @@
             <trans-unit id="71">
                 <source>The task has already been processed.</source>
                 <target>La tarea ya ha sido procesada.</target>
-            </trans-unit>            
+            </trans-unit> 
+            <trans-unit id="72">
+                <source>Add users</source>
+                <target>Insertar usuarios</target>
+            </trans-unit> 
+            <trans-unit id="73">
+                <source>Add task</source>
+                <target>Insertar tarea</target>
+            </trans-unit>             
         </body>
     </file>
 </xliff>
