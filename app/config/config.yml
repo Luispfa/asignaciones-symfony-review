@@ -54,7 +54,8 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #path: '%database_path%'
-
+        mapping_types:
+            enum: string
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -83,3 +84,23 @@ knp_paginator:
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
         
+# Elasticsearch
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+                user:
+                    properties:
+                        firstName: ~
+                        lastName: ~
+                    persistence:
+                        # the driver can be orm, mongodb, phpcr or propel
+                        # listener and finder are not supported by
+                        # propel and should be removed
+                        driver: orm
+                        model: appBundle\Entity\User
+                        provider: ~
+                        listener: ~
+                        finder: ~ 

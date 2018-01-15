@@ -15,3 +15,17 @@ redirect-edit:
         _controller: AppBundle:User:edit
         path: /user/edit/{id}
         permanent: true
+        
+task_redirect_add:
+    path: /task/create
+    defaults:
+        _controller: AppBundle:Task:add
+        path: /task/add
+        permanent: true
+    
+task_redirect_edit:
+    path: /task/update/{id}
+    defaults:
+        _controller: AppBundle:Task:edit
+        path: /task/edit/{id}
+        permanent: true

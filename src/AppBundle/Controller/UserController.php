@@ -18,18 +18,18 @@ class UserController extends Controller {
      * @Route("/user/index", name="user_index")
      */
     public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        //$users = $em->getRepository('AppBundle:User')->findAll();
-        /* $res = 'Lista de usuarios: <br/>';
+        $search_query = $request->get('query');
 
-          foreach ($users as $user) {
-          $res .= 'Usuario: ' . $user->getUsername() . ' Email: ' . $user->getEmail() . '<br/>';
-          }
+        if (!empty($search_query)) {
+            $finder = $this->container->get('fos_elastica.finder.app.user');
+            $users = $finder->createPaginatorAdapter($search_query);
+        //    var_dump($users);            exit();
+        } else {
+            $em = $this->getDoctrine()->getManager();
 
-          return new Response($res); */
-
-        $dql = "SELECT u FROM AppBundle:User u ORDER BY u.id DESC";
-        $users = $em->createQuery($dql);
+            $dql = "SELECT u FROM AppBundle:User u ORDER BY u.id DESC";
+            $users = $em->createQuery($dql);
+        }
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 3);

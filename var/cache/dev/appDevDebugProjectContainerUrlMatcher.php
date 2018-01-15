@@ -103,6 +103,70 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        elseif (0 === strpos($pathinfo, '/task')) {
+            // task_index
+            if ('/task/index' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\TaskController::indexAction',  '_route' => 'task_index',);
+            }
+
+            // task_add
+            if ('/task/add' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\TaskController::addAction',  '_route' => 'task_add',);
+            }
+
+            if (0 === strpos($pathinfo, '/task/create')) {
+                // task_create
+                if ('/task/create' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\TaskController::createAction',  '_route' => 'task_create',);
+                }
+
+                // task_redirect_add
+                if ('/task/create' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\TaskController::addAction',  'path' => '/task/add',  'permanent' => true,  '_route' => 'task_redirect_add',);
+                }
+
+            }
+
+            // task_custom
+            if ('/task/custom' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\TaskController::customAction',  '_route' => 'task_custom',);
+            }
+
+            // task_edit
+            if (0 === strpos($pathinfo, '/task/edit') && preg_match('#^/task/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_edit')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::editAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/task/update')) {
+                // task_update
+                if (preg_match('#^/task/update/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_update')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::updateAction',));
+                }
+
+                // task_redirect_edit
+                if (preg_match('#^/task/update/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_redirect_edit')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::editAction',  'path' => '/task/edit/{id}',  'permanent' => true,));
+                }
+
+            }
+
+            // task_view
+            if (0 === strpos($pathinfo, '/task/view') && preg_match('#^/task/view/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_view')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::viewAction',));
+            }
+
+            // task_delete
+            if (0 === strpos($pathinfo, '/task/delete') && preg_match('#^/task/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_delete')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::deleteAction',));
+            }
+
+            // task_process
+            if (0 === strpos($pathinfo, '/task/process') && preg_match('#^/task/process/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_process')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::processAction',));
+            }
+
+        }
+
         elseif (0 === strpos($pathinfo, '/user')) {
             // user_index
             if ('/user/index' === $pathinfo) {

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -17,6 +18,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface {
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
+     */
+    protected $tasks;
 
     /**
      * @var int
@@ -80,7 +86,7 @@ class User implements UserInterface {
      * @var bool
      *
      * @ORM\Column(name="is_active", type="boolean")
-    */
+     */
     private $isActive;
 
     /**
@@ -96,6 +102,10 @@ class User implements UserInterface {
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+
+    public function __construct() {
+        $this->tasks = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -329,6 +339,43 @@ class User implements UserInterface {
 
     public function eraseCredentials() {
         
+    }
+
+    /**
+     * Add task.
+     *
+     * @param \AppBundle\Entity\Task $task
+     *
+     * @return User
+     */
+    public function addTask(\AppBundle\Entity\Task $task) {
+        $this->tasks[] = $task;
+
+        return $this;
+    }
+
+    /**
+     * Remove task.
+     *
+     * @param \AppBundle\Entity\Task $task
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTask(\AppBundle\Entity\Task $task) {
+        return $this->tasks->removeElement($task);
+    }
+
+    /**
+     * Get tasks.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTasks() {
+        return $this->tasks;
+    }
+
+    public function getFullName() {
+        return $this->getFirstName() . " " . $this->getLastName();
     }
 
 }

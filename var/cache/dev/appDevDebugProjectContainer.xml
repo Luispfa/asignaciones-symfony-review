@@ -351,6 +351,31 @@
     <parameter key="knp_paginator.template.filtration">@KnpPaginator/Pagination/filtration.html.twig</parameter>
     <parameter key="knp_paginator.template.sortable">@KnpPaginator/Pagination/sortable_link.html.twig</parameter>
     <parameter key="knp_paginator.page_range">5</parameter>
+    <parameter key="fos_elastica.client.class">FOS\ElasticaBundle\Elastica\Client</parameter>
+    <parameter key="fos_elastica.logger.class">FOS\ElasticaBundle\Logger\ElasticaLogger</parameter>
+    <parameter key="fos_elastica.data_collector.class">FOS\ElasticaBundle\DataCollector\ElasticaDataCollector</parameter>
+    <parameter key="fos_elastica.mapping_builder.class">FOS\ElasticaBundle\Index\MappingBuilder</parameter>
+    <parameter key="fos_elastica.property_accessor.class">Symfony\Component\PropertyAccess\PropertyAccessor</parameter>
+    <parameter key="fos_elastica.property_accessor.magiccall">false</parameter>
+    <parameter key="fos_elastica.property_accessor.throwexceptiononinvalidindex">false</parameter>
+    <parameter key="fos_elastica.alias_processor.class">FOS\ElasticaBundle\Index\AliasProcessor</parameter>
+    <parameter key="fos_elastica.finder.class">FOS\ElasticaBundle\Finder\TransformedFinder</parameter>
+    <parameter key="fos_elastica.index.class">FOS\ElasticaBundle\Elastica\Index</parameter>
+    <parameter key="fos_elastica.indexable.class">FOS\ElasticaBundle\Provider\Indexable</parameter>
+    <parameter key="fos_elastica.index_manager.class">FOS\ElasticaBundle\Index\IndexManager</parameter>
+    <parameter key="fos_elastica.resetter.class">FOS\ElasticaBundle\Index\Resetter</parameter>
+    <parameter key="fos_elastica.type.class">Elastica\Type</parameter>
+    <parameter key="fos_elastica.object_persister.class">FOS\ElasticaBundle\Persister\ObjectPersister</parameter>
+    <parameter key="fos_elastica.object_serializer_persister.class">FOS\ElasticaBundle\Persister\ObjectSerializerPersister</parameter>
+    <parameter key="fos_elastica.provider_registry.class">FOS\ElasticaBundle\Provider\ProviderRegistry</parameter>
+    <parameter key="fos_elastica.elastica_to_model_transformer.collection.class">FOS\ElasticaBundle\Transformer\ElasticaToModelTransformerCollection</parameter>
+    <parameter key="fos_elastica.model_to_elastica_transformer.class">FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer</parameter>
+    <parameter key="fos_elastica.model_to_elastica_identifier_transformer.class">FOS\ElasticaBundle\Transformer\ModelToElasticaIdentifierTransformer</parameter>
+    <parameter key="fos_elastica.slice_fetcher.orm.class">FOS\ElasticaBundle\Doctrine\ORM\SliceFetcher</parameter>
+    <parameter key="fos_elastica.provider.prototype.orm.class">FOS\ElasticaBundle\Doctrine\ORM\Provider</parameter>
+    <parameter key="fos_elastica.listener.prototype.orm.class">FOS\ElasticaBundle\Doctrine\Listener</parameter>
+    <parameter key="fos_elastica.elastica_to_model_transformer.prototype.orm.class">FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer</parameter>
+    <parameter key="fos_elastica.manager.orm.class">FOS\ElasticaBundle\Doctrine\RepositoryManager</parameter>
     <parameter key="web_profiler.debug_toolbar.position">bottom</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
@@ -415,6 +440,10 @@
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
       </parameter>
+      <parameter key="fos_elastica.data_collector" type="collection">
+        <parameter>elastica</parameter>
+        <parameter>FOSElasticaBundle:Collector:elastica</parameter>
+      </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
@@ -456,8 +485,14 @@
   <services>
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" synthetic="true"/>
     <service id="AppBundle\AppBundle" class="AppBundle\AppBundle" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\Controller\TaskController" class="AppBundle\Controller\TaskController" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+    </service>
+    <service id="AppBundle\Form\TaskType" class="AppBundle\Form\TaskType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -478,7 +513,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.a1f44d8ec1e5847e04bad96f6d0390dc"/>
+      <argument type="service" id="service_locator.a6853c42c9cdca52315d37626a07e375"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -623,7 +658,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <argument>/var/www/html/asignaciones-symfony-review/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -633,7 +668,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -752,7 +787,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.46b3ee7177c028f69bd4a388768b2c81"/>
+      <argument type="service" id="service_locator.dca99db040d33f307fb084015a379a74"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -1131,6 +1166,9 @@
       </call>
       <call method="add">
         <argument type="service" id="data_collector.dump"/>
+      </call>
+      <call method="add">
+        <argument type="service" id="fos_elastica.data_collector"/>
       </call>
       <call method="add">
         <argument type="service" id="data_collector.config"/>
@@ -1610,6 +1648,14 @@
         <argument type="collection">
           <argument type="service" id="knp_paginator.subscriber.sliding_pagination"/>
           <argument>pagination</argument>
+        </argument>
+        <argument>1</argument>
+      </call>
+      <call method="addListener">
+        <argument>knp_pager.items</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_elastica.paginator.subscriber"/>
+          <argument>items</argument>
         </argument>
         <argument>1</argument>
       </call>
@@ -2234,12 +2280,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5a5be72fee5050.71229605</argument>
+      <argument>5a5c91b32c54d7.66481033</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5a5be72fee5050.71229605</argument>
+      <argument>5a5c91b32c54d7.66481033</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -2875,6 +2921,15 @@
       <argument type="service" id="service_container"/>
       <call method="addEventListener">
         <argument type="collection">
+          <argument>postPersist</argument>
+          <argument>postUpdate</argument>
+          <argument>preRemove</argument>
+          <argument>postFlush</argument>
+        </argument>
+        <argument type="service" id="fos_elastica.listener.app.user"/>
+      </call>
+      <call method="addEventListener">
+        <argument type="collection">
           <argument>loadClassMetadata</argument>
         </argument>
         <argument type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
@@ -2894,7 +2949,9 @@
       </argument>
       <argument type="service" id="doctrine.dbal.default_connection.configuration"/>
       <argument type="service" id="doctrine.dbal.default_connection.event_manager"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="enum">string</argument>
+      </argument>
       <factory service="doctrine.dbal.connection_factory" method="createConnection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer" public="false">
@@ -3183,6 +3240,299 @@
       <tag name="twig.extension"/>
       <argument type="service" id="knp_paginator.helper.processor"/>
     </service>
+    <service id="fos_elastica.client_prototype" class="FOS\ElasticaBundle\Elastica\Client" abstract="true">
+      <argument type="collection"/>
+      <argument></argument>
+      <call method="setStopwatch">
+        <argument type="service" id="debug.stopwatch" on-invalid="null"/>
+      </call>
+    </service>
+    <service id="fos_elastica.config_manager" class="FOS\ElasticaBundle\Configuration\ConfigManager">
+      <argument type="collection">
+        <argument type="service" id="fos_elastica.config_source.container"/>
+      </argument>
+    </service>
+    <service id="fos_elastica.data_collector" class="FOS\ElasticaBundle\DataCollector\ElasticaDataCollector">
+      <tag name="data_collector" template="FOSElasticaBundle:Collector:elastica" id="elastica"/>
+      <argument type="service" id="fos_elastica.logger"/>
+    </service>
+    <service id="fos_elastica.paginator.subscriber" class="FOS\ElasticaBundle\Subscriber\PaginateElasticaQuerySubscriber">
+      <tag name="knp_paginator.subscriber"/>
+      <call method="setRequest">
+        <argument type="service" id="request_stack" on-invalid="null"/>
+      </call>
+    </service>
+    <service id="fos_elastica.logger" class="FOS\ElasticaBundle\Logger\ElasticaLogger">
+      <tag name="monolog.logger" channel="elastica"/>
+      <argument type="service" id="monolog.logger.elastica" on-invalid="null"/>
+      <argument>true</argument>
+    </service>
+    <service id="fos_elastica.mapping_builder" class="FOS\ElasticaBundle\Index\MappingBuilder"/>
+    <service id="fos_elastica.property_accessor" class="Symfony\Component\PropertyAccess\PropertyAccessor">
+      <argument>false</argument>
+      <argument>false</argument>
+    </service>
+    <service id="fos_elastica.alias_processor" class="FOS\ElasticaBundle\Index\AliasProcessor"/>
+    <service id="fos_elastica.indexable" class="FOS\ElasticaBundle\Provider\Indexable">
+      <argument type="collection"/>
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="fos_elastica.index_prototype" class="FOS\ElasticaBundle\Elastica\Index" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="fos_elastica.type_prototype" class="Elastica\Type" abstract="true">
+      <argument></argument>
+    </service>
+    <service id="fos_elastica.index_manager" class="FOS\ElasticaBundle\Index\IndexManager">
+      <argument type="collection">
+        <argument key="app" type="service" id="fos_elastica.index.app"/>
+      </argument>
+      <argument type="service" id="fos_elastica.index.app"/>
+    </service>
+    <service id="fos_elastica.resetter" class="FOS\ElasticaBundle\Index\Resetter">
+      <argument type="service" id="fos_elastica.config_manager"/>
+      <argument type="service" id="fos_elastica.index_manager"/>
+      <argument type="service" id="fos_elastica.alias_processor"/>
+      <argument type="service" id="fos_elastica.mapping_builder"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="fos_elastica.finder" class="FOS\ElasticaBundle\Finder\TransformedFinder" abstract="true">
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="fos_elastica.object_persister" class="FOS\ElasticaBundle\Persister\ObjectPersister" abstract="true">
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="fos_elastica.object_serializer_persister" class="FOS\ElasticaBundle\Persister\ObjectSerializerPersister" abstract="true">
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+      <argument></argument>
+    </service>
+    <service id="fos_elastica.provider_registry" class="FOS\ElasticaBundle\Provider\ProviderRegistry">
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+      <call method="addProvider">
+        <argument>app</argument>
+        <argument>user</argument>
+        <argument>fos_elastica.provider.app.user</argument>
+      </call>
+    </service>
+    <service id="fos_elastica.config_source.container" class="FOS\ElasticaBundle\Configuration\Source\ContainerSource" public="false">
+      <tag name="fos_elastica.config_source"/>
+      <argument type="collection">
+        <argument key="app" type="collection">
+          <argument key="elasticsearch_name">app</argument>
+          <argument key="reference" type="service" id="fos_elastica.index.app"/>
+          <argument key="name">app</argument>
+          <argument key="settings" type="collection"/>
+          <argument key="type_prototype" type="collection"/>
+          <argument key="use_alias">false</argument>
+          <argument key="types" type="collection">
+            <argument key="user" type="collection">
+              <argument key="name">user</argument>
+              <argument key="mapping" type="collection">
+                <argument key="dynamic_templates" type="collection"/>
+                <argument key="properties" type="collection">
+                  <argument key="firstName" type="collection"/>
+                  <argument key="lastName" type="collection"/>
+                </argument>
+              </argument>
+              <argument key="config" type="collection">
+                <argument key="persistence" type="collection">
+                  <argument key="driver">orm</argument>
+                  <argument key="model">appBundle\Entity\User</argument>
+                  <argument key="provider" type="collection">
+                    <argument key="batch_size">100</argument>
+                    <argument key="clear_object_manager">true</argument>
+                    <argument key="debug_logging">true</argument>
+                    <argument key="query_builder_method">createQueryBuilder</argument>
+                  </argument>
+                  <argument key="listener" type="collection">
+                    <argument key="insert">true</argument>
+                    <argument key="update">true</argument>
+                    <argument key="delete">true</argument>
+                    <argument key="flush">true</argument>
+                    <argument key="immediate">false</argument>
+                    <argument key="logger">false</argument>
+                  </argument>
+                  <argument key="finder" type="collection"/>
+                  <argument key="identifier">id</argument>
+                  <argument key="elastica_to_model_transformer" type="collection">
+                    <argument key="hints" type="collection"/>
+                    <argument key="hydrate">true</argument>
+                    <argument key="ignore_missing">false</argument>
+                    <argument key="query_builder_method">createQueryBuilder</argument>
+                  </argument>
+                  <argument key="model_to_elastica_transformer" type="collection"/>
+                  <argument key="persister" type="collection"/>
+                </argument>
+                <argument key="serializer" type="collection">
+                  <argument key="groups" type="collection"/>
+                  <argument key="serialize_null">false</argument>
+                </argument>
+                <argument key="index_analyzer">null</argument>
+                <argument key="search_analyzer">null</argument>
+                <argument key="dynamic">null</argument>
+                <argument key="date_detection">null</argument>
+                <argument key="dynamic_date_formats" type="collection"/>
+                <argument key="numeric_detection">null</argument>
+              </argument>
+            </argument>
+          </argument>
+        </argument>
+      </argument>
+    </service>
+    <service id="fos_elastica.model_to_elastica_transformer" class="FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer" public="false" abstract="true">
+      <argument type="collection"/>
+      <argument type="service" id="event_dispatcher"/>
+      <call method="setPropertyAccessor">
+        <argument type="service" id="fos_elastica.property_accessor"/>
+      </call>
+    </service>
+    <service id="fos_elastica.model_to_elastica_identifier_transformer" class="FOS\ElasticaBundle\Transformer\ModelToElasticaIdentifierTransformer" public="false" abstract="true">
+      <argument type="collection"/>
+      <call method="setPropertyAccessor">
+        <argument type="service" id="fos_elastica.property_accessor"/>
+      </call>
+    </service>
+    <service id="fos_elastica.elastica_to_model_transformer.collection" class="FOS\ElasticaBundle\Transformer\ElasticaToModelTransformerCollection" abstract="true">
+      <argument type="collection"/>
+    </service>
+    <service id="fos_elastica.client.default" class="FOS\ElasticaBundle\Elastica\Client">
+      <tag name="fos_elastica.client"/>
+      <argument type="collection">
+        <argument key="connections" type="collection">
+          <argument type="collection">
+            <argument key="host">localhost</argument>
+            <argument key="port">9200</argument>
+            <argument key="logger">fos_elastica.logger</argument>
+            <argument key="compression">false</argument>
+            <argument key="headers" type="collection"/>
+            <argument key="retryOnConflict">0</argument>
+          </argument>
+        </argument>
+        <argument key="connectionStrategy">Simple</argument>
+      </argument>
+      <argument></argument>
+      <call method="setStopwatch">
+        <argument type="service" id="debug.stopwatch" on-invalid="null"/>
+      </call>
+      <call method="setLogger">
+        <argument type="service" id="fos_elastica.logger"/>
+      </call>
+    </service>
+    <service id="fos_elastica.index.app" class="FOS\ElasticaBundle\Elastica\Index">
+      <tag name="app"/>
+      <argument>app</argument>
+      <factory service="fos_elastica.client.default" method="getIndex"/>
+    </service>
+    <service id="fos_elastica.index.app.user" class="Elastica\Type">
+      <argument>user</argument>
+      <factory service="fos_elastica.index.app" method="getType"/>
+    </service>
+    <service id="fos_elastica.slice_fetcher.orm" class="FOS\ElasticaBundle\Doctrine\ORM\SliceFetcher"/>
+    <service id="fos_elastica.provider.prototype.orm" class="FOS\ElasticaBundle\Doctrine\ORM\Provider" abstract="true">
+      <argument></argument>
+      <argument type="service" id="fos_elastica.indexable"/>
+      <argument></argument>
+      <argument type="collection"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="fos_elastica.slice_fetcher.orm"/>
+    </service>
+    <service id="fos_elastica.listener.prototype.orm" class="FOS\ElasticaBundle\Doctrine\Listener" public="false" abstract="true">
+      <argument></argument>
+      <argument type="service" id="fos_elastica.indexable"/>
+      <argument type="collection"/>
+      <argument>null</argument>
+    </service>
+    <service id="fos_elastica.elastica_to_model_transformer.prototype.orm" class="FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer" public="false" abstract="true">
+      <argument type="service" id="doctrine"/>
+      <argument></argument>
+      <argument type="collection"/>
+      <call method="setPropertyAccessor">
+        <argument type="service" id="fos_elastica.property_accessor"/>
+      </call>
+    </service>
+    <service id="fos_elastica.manager.orm" class="FOS\ElasticaBundle\Doctrine\RepositoryManager">
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="annotations.cached_reader"/>
+      <call method="addEntity">
+        <argument>appBundle\Entity\User</argument>
+        <argument type="service" id="fos_elastica.finder.app.user"/>
+      </call>
+    </service>
+    <service id="fos_elastica.elastica_to_model_transformer.app.user" class="FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer" public="false">
+      <tag name="fos_elastica.elastica_to_model_transformer" type="user" index="app"/>
+      <argument type="service" id="doctrine"/>
+      <argument>appBundle\Entity\User</argument>
+      <argument type="collection">
+        <argument key="hints" type="collection"/>
+        <argument key="hydrate">true</argument>
+        <argument key="ignore_missing">false</argument>
+        <argument key="query_builder_method">createQueryBuilder</argument>
+        <argument key="identifier">id</argument>
+      </argument>
+      <call method="setPropertyAccessor">
+        <argument type="service" id="fos_elastica.property_accessor"/>
+      </call>
+    </service>
+    <service id="fos_elastica.model_to_elastica_transformer.app.user" class="FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer" public="false">
+      <argument type="collection">
+        <argument key="identifier">id</argument>
+      </argument>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <call method="setPropertyAccessor">
+        <argument type="service" id="fos_elastica.property_accessor"/>
+      </call>
+    </service>
+    <service id="fos_elastica.object_persister.app.user" class="FOS\ElasticaBundle\Persister\ObjectPersister">
+      <argument type="service" id="fos_elastica.index.app.user"/>
+      <argument type="service" id="fos_elastica.model_to_elastica_transformer.app.user"/>
+      <argument>appBundle\Entity\User</argument>
+      <argument type="collection">
+        <argument key="firstName" type="collection"/>
+        <argument key="lastName" type="collection"/>
+      </argument>
+    </service>
+    <service id="fos_elastica.provider.app.user" class="FOS\ElasticaBundle\Doctrine\ORM\Provider">
+      <tag name="fos_elastica.provider" index="app" type="user"/>
+      <argument type="service" id="fos_elastica.object_persister.app.user"/>
+      <argument type="service" id="fos_elastica.indexable"/>
+      <argument>appBundle\Entity\User</argument>
+      <argument type="collection">
+        <argument key="batch_size">100</argument>
+        <argument key="clear_object_manager">true</argument>
+        <argument key="debug_logging">true</argument>
+        <argument key="query_builder_method">createQueryBuilder</argument>
+        <argument key="indexName">app</argument>
+        <argument key="typeName">user</argument>
+      </argument>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="fos_elastica.slice_fetcher.orm"/>
+    </service>
+    <service id="fos_elastica.finder.app.user" class="FOS\ElasticaBundle\Finder\TransformedFinder">
+      <argument type="service" id="fos_elastica.index.app.user"/>
+      <argument type="service" id="fos_elastica.elastica_to_model_transformer.app.user"/>
+    </service>
+    <service id="fos_elastica.listener.app.user" class="FOS\ElasticaBundle\Doctrine\Listener" public="false">
+      <tag name="doctrine.event_listener" event="postPersist"/>
+      <tag name="doctrine.event_listener" event="postUpdate"/>
+      <tag name="doctrine.event_listener" event="preRemove"/>
+      <tag name="doctrine.event_listener" event="postFlush"/>
+      <argument type="service" id="fos_elastica.object_persister.app.user"/>
+      <argument type="service" id="fos_elastica.indexable"/>
+      <argument type="collection">
+        <argument key="identifier">id</argument>
+        <argument key="indexName">app</argument>
+        <argument key="typeName">user</argument>
+      </argument>
+      <argument>null</argument>
+    </service>
     <service id="twig.extension.dump" class="Symfony\Bridge\Twig\Extension\DumpExtension" public="false">
       <tag name="twig.extension"/>
       <argument type="service" id="var_dumper.cloner"/>
@@ -3301,6 +3651,10 @@
           <argument>dump</argument>
           <argument>@Debug/Profiler/dump.html.twig</argument>
         </argument>
+        <argument key="fos_elastica.data_collector" type="collection">
+          <argument>elastica</argument>
+          <argument>FOSElasticaBundle:Collector:elastica</argument>
+        </argument>
         <argument key="data_collector.config" type="collection">
           <argument>config</argument>
           <argument>@WebProfiler/Collector/config.html.twig</argument>
@@ -3358,21 +3712,30 @@
     <service id="web_server.command.server_status" class="Symfony\Bundle\WebServerBundle\Command\ServerStatusCommand" public="false">
       <tag name="console.command"/>
     </service>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\TaskController" class="AppBundle\Controller\TaskController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\TaskController" class="AppBundle\Controller\TaskController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\TaskType" class="AppBundle\Form\TaskType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\TaskType" class="AppBundle\Form\TaskType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="service_locator.5ddbd303e701149790a87316e74426be" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.4f27295e1ee3cd81c185c2a4cb89efcf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.a1f44d8ec1e5847e04bad96f6d0390dc" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.a6853c42c9cdca52315d37626a07e375" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.46b3ee7177c028f69bd4a388768b2c81" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.dca99db040d33f307fb084015a379a74" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="AppBundle\Form\TaskType" type="service" id="AppBundle\Form\TaskType"/>
         <argument key="AppBundle\Form\UserType" type="service" id="AppBundle\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
@@ -3502,6 +3865,21 @@
         <argument type="service" id="monolog.handler.main"/>
       </call>
     </service>
+    <service id="monolog.logger.elastica" class="Symfony\Bridge\Monolog\Logger">
+      <argument>elastica</argument>
+      <call method="pushProcessor">
+        <argument type="service" id="debug.log_processor"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.server_log"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.console"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+    </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
     <service id="service_locator.6f24348b77840ec12a20c22a3f985cf7" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -3572,7 +3950,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>79KfMjHJ0W</argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <argument>/var/www/html/asignaciones-symfony-review/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3580,7 +3958,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>lG3+DBfEpD</argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <argument>/var/www/html/asignaciones-symfony-review/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3588,7 +3966,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>eMFziUsmTO</argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <argument>/var/www/html/asignaciones-symfony-review/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3596,7 +3974,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>3rbKhOHLJR</argument>
       <argument>0</argument>
-      <argument>RnblbcmuoF2+QNzMNHhxIr</argument>
+      <argument>tUgMOhHzjJpQ+hDiMGXb-x</argument>
       <argument>/var/www/html/asignaciones-symfony-review/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3693,6 +4071,9 @@
     <service id="doctrine.orm.default_entity_manager.event_manager" alias="doctrine.dbal.default_connection.event_manager" public="false"/>
     <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default" public="false"/>
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
+    <service id="fos_elastica.client" alias="fos_elastica.client.default"/>
+    <service id="fos_elastica.index" alias="fos_elastica.index.app"/>
+    <service id="fos_elastica.manager" alias="fos_elastica.manager.orm"/>
     <service id="Symfony\Component\Templating\EngineInterface" alias="templating.engine.twig" public="false"/>
     <service id="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" alias="templating.engine.twig" public="false"/>
     <service id="console.command.symfony_bundle_securitybundle_command_userpasswordencodercommand" alias="security.console.user_password_encoder_command"/>

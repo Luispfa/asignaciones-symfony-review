@@ -1,6 +1,6 @@
 <?php
 
-/* ::menu.html.twig */
+/* menu.html.twig */
 class __TwigTemplate_8c47720c800872bb0c138ae7e7eab0970d78de303fe1a55b03e037c7417924f8 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -15,11 +15,11 @@ class __TwigTemplate_8c47720c800872bb0c138ae7e7eab0970d78de303fe1a55b03e037c7417
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_08a3ae5f553ed0d2d49bcea5ce7156d8b89213222d1665851b37a902a1c7f186 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_08a3ae5f553ed0d2d49bcea5ce7156d8b89213222d1665851b37a902a1c7f186->enter($__internal_08a3ae5f553ed0d2d49bcea5ce7156d8b89213222d1665851b37a902a1c7f186_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::menu.html.twig"));
+        $__internal_27823c2bac999dd32e58d401a35b762d51c1076c43b2e21dc46182fcf428ea7b = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_27823c2bac999dd32e58d401a35b762d51c1076c43b2e21dc46182fcf428ea7b->enter($__internal_27823c2bac999dd32e58d401a35b762d51c1076c43b2e21dc46182fcf428ea7b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "menu.html.twig"));
 
-        $__internal_8d38b8a05c113b31c4fecfcf82955775fcb73ea527f7f06e1a07ffce7300bf97 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_8d38b8a05c113b31c4fecfcf82955775fcb73ea527f7f06e1a07ffce7300bf97->enter($__internal_8d38b8a05c113b31c4fecfcf82955775fcb73ea527f7f06e1a07ffce7300bf97_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::menu.html.twig"));
+        $__internal_fe8038a68fde97cb05cdccae51879e4bf2e0a03182891de0bfa6ee374b7fa610 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_fe8038a68fde97cb05cdccae51879e4bf2e0a03182891de0bfa6ee374b7fa610->enter($__internal_fe8038a68fde97cb05cdccae51879e4bf2e0a03182891de0bfa6ee374b7fa610_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "menu.html.twig"));
 
         // line 1
         echo "<nav class=\"navbar navbar-inverse\">
@@ -61,21 +61,42 @@ class __TwigTemplate_8c47720c800872bb0c138ae7e7eab0970d78de303fe1a55b03e037c7417
         echo "</a></li>
                     </ul>
                 </li>
+                
+                <li class=\"dropdown\">
+                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+        // line 26
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("Tasks", array(), "messages");
+        echo "<span class=\"caret\"></span></a>
+                    <ul class=\"dropdown-menu\">
+                        <li><a href=\"";
+        // line 28
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("task_index");
+        echo "\">";
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("List tasks", array(), "messages");
+        echo "</a></li>
+                        <li><a href=\"";
+        // line 29
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("task_add");
+        echo "\">";
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("Add task", array(), "messages");
+        echo "</a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>";
         
-        $__internal_08a3ae5f553ed0d2d49bcea5ce7156d8b89213222d1665851b37a902a1c7f186->leave($__internal_08a3ae5f553ed0d2d49bcea5ce7156d8b89213222d1665851b37a902a1c7f186_prof);
+        $__internal_27823c2bac999dd32e58d401a35b762d51c1076c43b2e21dc46182fcf428ea7b->leave($__internal_27823c2bac999dd32e58d401a35b762d51c1076c43b2e21dc46182fcf428ea7b_prof);
 
         
-        $__internal_8d38b8a05c113b31c4fecfcf82955775fcb73ea527f7f06e1a07ffce7300bf97->leave($__internal_8d38b8a05c113b31c4fecfcf82955775fcb73ea527f7f06e1a07ffce7300bf97_prof);
+        $__internal_fe8038a68fde97cb05cdccae51879e4bf2e0a03182891de0bfa6ee374b7fa610->leave($__internal_fe8038a68fde97cb05cdccae51879e4bf2e0a03182891de0bfa6ee374b7fa610_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "::menu.html.twig";
+        return "menu.html.twig";
     }
 
     public function isTraitable()
@@ -85,7 +106,7 @@ class __TwigTemplate_8c47720c800872bb0c138ae7e7eab0970d78de303fe1a55b03e037c7417
 
     public function getDebugInfo()
     {
-        return array (  58 => 21,  52 => 20,  47 => 18,  37 => 11,  25 => 1,);
+        return array (  79 => 29,  73 => 28,  68 => 26,  58 => 21,  52 => 20,  47 => 18,  37 => 11,  25 => 1,);
     }
 
     public function getSourceContext()
@@ -113,9 +134,17 @@ class __TwigTemplate_8c47720c800872bb0c138ae7e7eab0970d78de303fe1a55b03e037c7417
                         <li><a href=\"{{ path('user_add') }}\">{% trans %}Add users{% endtrans %}</a></li>
                     </ul>
                 </li>
+                
+                <li class=\"dropdown\">
+                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">{% trans %}Tasks {% endtrans %}<span class=\"caret\"></span></a>
+                    <ul class=\"dropdown-menu\">
+                        <li><a href=\"{{ path('task_index') }}\">{% trans %}List tasks{% endtrans %}</a></li>
+                        <li><a href=\"{{ path('task_add') }}\">{% trans %}Add task{% endtrans %}</a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-</nav>", "::menu.html.twig", "/var/www/html/asignaciones-symfony-review/app/Resources/views/menu.html.twig");
+</nav>", "menu.html.twig", "/var/www/html/asignaciones-symfony-review/app/Resources/views/menu.html.twig");
     }
 }
