@@ -103,7 +103,34 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        elseif (0 === strpos($pathinfo, '/task')) {
+        // user_homepage
+        if ('' === $trimmedPathinfo) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($rawPathinfo.'/', 'user_homepage');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::homeAction',  '_route' => 'user_homepage',);
+        }
+
+        if (0 === strpos($pathinfo, '/login')) {
+            // user_login
+            if ('/login' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginAction',  '_route' => 'user_login',);
+            }
+
+            // user_login_check
+            if ('/login_check' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginCheckAction',  '_route' => 'user_login_check',);
+            }
+
+        }
+
+        // user_logout
+        if ('/logout' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'user_logout',);
+        }
+
+        if (0 === strpos($pathinfo, '/task')) {
             // task_index
             if ('/task/index' === $pathinfo) {
                 return array (  '_controller' => 'AppBundle\\Controller\\TaskController::indexAction',  '_route' => 'task_index',);

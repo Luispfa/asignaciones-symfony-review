@@ -1,6 +1,6 @@
 <?php
 
-/* :forms:form.html.twig */
+/* forms/form.html.twig */
 class __TwigTemplate_77f5656ccb84a58d865c092ad766105180f40eb869a87c0a736e495e785bf57b extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -15,11 +15,11 @@ class __TwigTemplate_77f5656ccb84a58d865c092ad766105180f40eb869a87c0a736e495e785
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_34303480d30707050b4f773e81565750af8c2547585c1a7027094d1940b7d9b1 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_34303480d30707050b4f773e81565750af8c2547585c1a7027094d1940b7d9b1->enter($__internal_34303480d30707050b4f773e81565750af8c2547585c1a7027094d1940b7d9b1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":forms:form.html.twig"));
+        $__internal_53d643ea6cf95af86905f88e330787e825bcfe8611dd8c76a68ea3f2b03505f3 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_53d643ea6cf95af86905f88e330787e825bcfe8611dd8c76a68ea3f2b03505f3->enter($__internal_53d643ea6cf95af86905f88e330787e825bcfe8611dd8c76a68ea3f2b03505f3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "forms/form.html.twig"));
 
-        $__internal_43668ed7198d28f6f47df7c421fc74348fb1aa554bef319a9c721050cbd5a311 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_43668ed7198d28f6f47df7c421fc74348fb1aa554bef319a9c721050cbd5a311->enter($__internal_43668ed7198d28f6f47df7c421fc74348fb1aa554bef319a9c721050cbd5a311_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":forms:form.html.twig"));
+        $__internal_c7c093a99b8771311635fe988178d11aeed19d22604dd6739fe5231eb42d338f = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_c7c093a99b8771311635fe988178d11aeed19d22604dd6739fe5231eb42d338f->enter($__internal_c7c093a99b8771311635fe988178d11aeed19d22604dd6739fe5231eb42d338f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "forms/form.html.twig"));
 
         // line 1
         echo         $this->env->getRuntime('Symfony\Bridge\Twig\Form\TwigRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 1, $this->getSourceContext()); })()), 'form_start', array("attr" => array("id" => ((array_key_exists("id", $context)) ? (_twig_default_filter((isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new Twig_Error_Runtime('Variable "id" does not exist.', 1, $this->getSourceContext()); })()), "form")) : ("form")))));
@@ -63,16 +63,16 @@ class __TwigTemplate_77f5656ccb84a58d865c092ad766105180f40eb869a87c0a736e495e785
     }
 </script>";
         
-        $__internal_34303480d30707050b4f773e81565750af8c2547585c1a7027094d1940b7d9b1->leave($__internal_34303480d30707050b4f773e81565750af8c2547585c1a7027094d1940b7d9b1_prof);
+        $__internal_53d643ea6cf95af86905f88e330787e825bcfe8611dd8c76a68ea3f2b03505f3->leave($__internal_53d643ea6cf95af86905f88e330787e825bcfe8611dd8c76a68ea3f2b03505f3_prof);
 
         
-        $__internal_43668ed7198d28f6f47df7c421fc74348fb1aa554bef319a9c721050cbd5a311->leave($__internal_43668ed7198d28f6f47df7c421fc74348fb1aa554bef319a9c721050cbd5a311_prof);
+        $__internal_c7c093a99b8771311635fe988178d11aeed19d22604dd6739fe5231eb42d338f->leave($__internal_c7c093a99b8771311635fe988178d11aeed19d22604dd6739fe5231eb42d338f_prof);
 
     }
 
     public function getTemplateName()
     {
-        return ":forms:form.html.twig";
+        return "forms/form.html.twig";
     }
 
     public function isTraitable()
@@ -109,6 +109,6 @@ class __TwigTemplate_77f5656ccb84a58d865c092ad766105180f40eb869a87c0a736e495e785
             }
         });
     }
-</script>", ":forms:form.html.twig", "/var/www/html/asignaciones-symfony-review/app/Resources/views/forms/form.html.twig");
+</script>", "forms/form.html.twig", "/var/www/html/asignaciones-symfony-review/app/Resources/views/forms/form.html.twig");
     }
 }

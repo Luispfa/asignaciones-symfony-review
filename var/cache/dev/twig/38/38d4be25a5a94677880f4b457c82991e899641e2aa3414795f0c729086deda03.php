@@ -1,6 +1,6 @@
 <?php
 
-/* KnpPaginatorBundle:Pagination:sortable_link.html.twig */
+/* @KnpPaginator/Pagination/sortable_link.html.twig */
 class __TwigTemplate_cf3733c5a14a45e54b8ad5e0bd72d215a29071645f73a6e85788f6f24e87ce9a extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -15,11 +15,11 @@ class __TwigTemplate_cf3733c5a14a45e54b8ad5e0bd72d215a29071645f73a6e85788f6f24e8
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2692de5ae6a7821530ec5bf2b595c7ffaf2c732ebc506529c19c7fb3ed314301 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_2692de5ae6a7821530ec5bf2b595c7ffaf2c732ebc506529c19c7fb3ed314301->enter($__internal_2692de5ae6a7821530ec5bf2b595c7ffaf2c732ebc506529c19c7fb3ed314301_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "KnpPaginatorBundle:Pagination:sortable_link.html.twig"));
+        $__internal_08b48b0f7feaf29ec3127cc1e1c168c04d1150bc9d987441c469b2becba7b513 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_08b48b0f7feaf29ec3127cc1e1c168c04d1150bc9d987441c469b2becba7b513->enter($__internal_08b48b0f7feaf29ec3127cc1e1c168c04d1150bc9d987441c469b2becba7b513_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@KnpPaginator/Pagination/sortable_link.html.twig"));
 
-        $__internal_fdfca76511f777baca947f1229faf7973b7c103c0e0a16ee68bc7687c1be3e51 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_fdfca76511f777baca947f1229faf7973b7c103c0e0a16ee68bc7687c1be3e51->enter($__internal_fdfca76511f777baca947f1229faf7973b7c103c0e0a16ee68bc7687c1be3e51_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "KnpPaginatorBundle:Pagination:sortable_link.html.twig"));
+        $__internal_a15f26e5555114e20c2d1662cf1dee5ac40dfb05c524513a45efdee3418f6b51 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_a15f26e5555114e20c2d1662cf1dee5ac40dfb05c524513a45efdee3418f6b51->enter($__internal_a15f26e5555114e20c2d1662cf1dee5ac40dfb05c524513a45efdee3418f6b51_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@KnpPaginator/Pagination/sortable_link.html.twig"));
 
         // line 1
         echo "<a";
@@ -40,16 +40,16 @@ class __TwigTemplate_cf3733c5a14a45e54b8ad5e0bd72d215a29071645f73a6e85788f6f24e8
         echo "</a>
 ";
         
-        $__internal_2692de5ae6a7821530ec5bf2b595c7ffaf2c732ebc506529c19c7fb3ed314301->leave($__internal_2692de5ae6a7821530ec5bf2b595c7ffaf2c732ebc506529c19c7fb3ed314301_prof);
+        $__internal_08b48b0f7feaf29ec3127cc1e1c168c04d1150bc9d987441c469b2becba7b513->leave($__internal_08b48b0f7feaf29ec3127cc1e1c168c04d1150bc9d987441c469b2becba7b513_prof);
 
         
-        $__internal_fdfca76511f777baca947f1229faf7973b7c103c0e0a16ee68bc7687c1be3e51->leave($__internal_fdfca76511f777baca947f1229faf7973b7c103c0e0a16ee68bc7687c1be3e51_prof);
+        $__internal_a15f26e5555114e20c2d1662cf1dee5ac40dfb05c524513a45efdee3418f6b51->leave($__internal_a15f26e5555114e20c2d1662cf1dee5ac40dfb05c524513a45efdee3418f6b51_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "KnpPaginatorBundle:Pagination:sortable_link.html.twig";
+        return "@KnpPaginator/Pagination/sortable_link.html.twig";
     }
 
     public function isTraitable()
@@ -65,6 +65,6 @@ class __TwigTemplate_cf3733c5a14a45e54b8ad5e0bd72d215a29071645f73a6e85788f6f24e8
     public function getSourceContext()
     {
         return new Twig_Source("<a{% for attr, value in options %} {{ attr }}=\"{{ value }}\"{% endfor %}>{{ title }}</a>
-", "KnpPaginatorBundle:Pagination:sortable_link.html.twig", "/var/www/html/asignaciones-symfony-review/vendor/knplabs/knp-paginator-bundle/Resources/views/Pagination/sortable_link.html.twig");
+", "@KnpPaginator/Pagination/sortable_link.html.twig", "/var/www/html/asignaciones-symfony-review/vendor/knplabs/knp-paginator-bundle/Resources/views/Pagination/sortable_link.html.twig");
     }
 }

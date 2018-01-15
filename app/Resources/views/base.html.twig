@@ -10,13 +10,15 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-    {% block body %}
-        {{ include('menu.html.twig') }}
-    {% endblock %}
-    {% block javascripts %}
-        <script src="{{ asset('public/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('public/js/bootbox.min.js') }}"></script>
-    {% endblock %}
-</body>
+        {% block body %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ include('menu.html.twig') }}
+            {% endif %}
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('public/js/jquery-3.2.1.min.js') }}"></script>
+            <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('public/js/bootbox.min.js') }}"></script>
+        {% endblock %}
+    </body>
 </html>

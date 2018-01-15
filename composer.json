@@ -31,8 +31,7 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
-        "knplabs/knp-paginator-bundle": "^2.7",
-        "friendsofsymfony/elastica-bundle": "3.2.*"
+        "knplabs/knp-paginator-bundle": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
