@@ -65,35 +65,104 @@ class TaskController extends Controller {
         }
 
         return $this->render('task/add.html.twig', array('form' => $form->createView()));
-        ;
     }
 
     /**
      * @Route("/task/edit/{id}", name="task_edit")
      */
-    public function editAction(Request $request) {
-        
+    public function editAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository('AppBundle:Task')->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+
+        $form = $this->createEditForm($task);
+
+        return $this->render('task/edit.html.twig', array('task' => $task, 'form' => $form->createView()));
+    }
+
+    private function createEditForm(Task $entity) {
+        $form = $this->createForm(TaskType::class, $entity, array(
+            'action' => $this->generateUrl('task_update', array('id' => $entity->getId())),
+            'method' => 'PUT'
+        ));
+        return $form;
     }
 
     /**
      * @Route("/task/update/{id}", name="task_update")
      */
-    public function updateAction(Request $request) {
-        
+    public function updateAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository('AppBundle:Task')->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+
+        $form = $this->createEditForm($task);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task->setStatus(0);
+            $em->flush();
+            $this->addFlash('mensaje', 'The task has benn modified');
+
+            return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+        }
+
+        return $this->render('task/edit.html.twig', array('task' => $task, 'form' => $form->createView()));
     }
 
     /**
      * @Route("/task/view/{id}", name="task_view")
      */
-    public function viewAction(Request $request) {
-        
+    public function viewAction($id) {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+
+        $delete_form = $this->createCustomForm($task->getId(), 'DELETE', 'task_delete');
+
+        $user = $task->getUser();
+
+        return $this->render('task/view.html.twig', array('task' => $task, 'user' => $user, 'delete_form' => $delete_form->createView()));
+    }
+
+    private function createCustomForm($id, $method, $route) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl($route, array('id' => $id)))
+                        ->setMethod($method)
+                        ->getForm();
     }
 
     /**
      * @Route("/task/delete/{id}", name="task_delete")
      * Method({"POST", "DELETE"})
      */
-    public function deleteAction(Request $request) {
+    public function deleteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $task =$em->getRepository('AppBundle:Task')->find($id);
+        
+        if (!$task) {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+        
+        $form = $this->createCustomForm($task->getId(), 'DELETE', 'task_delete');
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $em->remove($task);
+            $em->flush();
+            
+            $this->addFlash('mensaje', 'The task has been deleted');
+            
+            return $this->redirectToRoute('task_index');
+        }
         
     }
 

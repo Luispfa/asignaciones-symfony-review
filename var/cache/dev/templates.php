@@ -130,6 +130,10 @@
   '::base.html.twig' => __DIR__.'/../../../app/Resources/views/base.html.twig',
   ':messages:danger.html.twig' => __DIR__.'/../../../app/Resources/views/messages/danger.html.twig',
   ':messages:success.html.twig' => __DIR__.'/../../../app/Resources/views/messages/success.html.twig',
+  ':task:view.html.twig' => __DIR__.'/../../../app/Resources/views/task/view.html.twig',
+  ':task:edit.html.twig' => __DIR__.'/../../../app/Resources/views/task/edit.html.twig',
+  ':task:add.html.twig' => __DIR__.'/../../../app/Resources/views/task/add.html.twig',
+  ':task:index.html.twig' => __DIR__.'/../../../app/Resources/views/task/index.html.twig',
   ':default:index.html_1.twig' => __DIR__.'/../../../app/Resources/views/default/index.html_1.twig',
   ':default:index.html.twig' => __DIR__.'/../../../app/Resources/views/default/index.html.twig',
   '::menu.html.twig' => __DIR__.'/../../../app/Resources/views/menu.html.twig',
@@ -137,5 +141,6 @@
   ':user:edit.html.twig' => __DIR__.'/../../../app/Resources/views/user/edit.html.twig',
   ':user:add.html.twig' => __DIR__.'/../../../app/Resources/views/user/add.html.twig',
   ':user:index.html.twig' => __DIR__.'/../../../app/Resources/views/user/index.html.twig',
+  ':forms:form_task.html.twig' => __DIR__.'/../../../app/Resources/views/forms/form_task.html.twig',
   ':forms:form.html.twig' => __DIR__.'/../../../app/Resources/views/forms/form.html.twig',
 );
